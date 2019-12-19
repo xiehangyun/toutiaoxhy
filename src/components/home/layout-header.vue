@@ -38,7 +38,7 @@ export default {
     }).then(result => {
       this.userInfo = result.data.data
     }).catch(() => {
-      this.$router.push('/login')
+      this.open()
     })
   },
   methods: {
@@ -49,6 +49,17 @@ export default {
       } else if (command === 'git') {
         window.location.href = 'https://github.com/xiehangyun'
       }
+    },
+    open () {
+      this.$alert('请登陆账号', '网页提示', {
+        confirmButtonText: '确定',
+        callback: () => {
+          this.pushPage()
+        }
+      })
+    },
+    pushPage () {
+      this.$router.push('/login')
     }
   }
 }

@@ -3,7 +3,7 @@
     <div class="title">
       <img src="../../assets/img/logo_admin.png" alt />
     </div>
-    <el-menu  router:true background-color="#323745" text-color="#adafb5" style="width:231px" active-text-color="#ffd04b">
+    <el-menu router background-color="#323745" text-color="#adafb5" style="width:231px" active-text-color="#ffd04b">
       <el-menu-item index="/home">首页</el-menu-item>
       <el-submenu index='1'>
         <span slot="title">内容管理</span>
