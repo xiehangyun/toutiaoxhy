@@ -1,15 +1,15 @@
 <template>
-  <div class="login">
+  <div class="login" v-cloak>
     <el-card class="login_card">
       <div class="title">
         <img src="../../assets/img/logo_index.png" alt />
       </div>
       <el-form class="myForm" ref="myForm" :model="myForm" :rules="myrules">
-        <el-form-item prop="phone">
-          <el-input v-model="myForm.phone" placeholder="请输入手机号"></el-input>
+        <el-form-item prop="mobile">
+          <el-input v-model="myForm.mobile" placeholder="请输入手机号"></el-input>
         </el-form-item>
-        <el-form-item prop="verify">
-          <el-input style="width:65%" v-model="myForm.verify" placeholder="请输入验证码"></el-input>
+        <el-form-item prop="code">
+          <el-input style="width:65%" v-model="myForm.code" placeholder="请输入验证码"></el-input>
           <el-button style="float:right;margin-top:1px">发送验证码</el-button>
         </el-form-item>
         <el-form-item prop="agree">
@@ -28,13 +28,13 @@ export default {
   data () {
     return {
       myForm: {
-        phone: '',
-        verify: '',
+        mobile: '',
+        code: '',
         agree: false
       },
       myrules: {
-        phone: [{ required: true, message: '请输入您的手机号' }, { pattern: /^1[3456789]\d{9}$/, message: '手机号格式错误' }],
-        verify: [{ required: true, message: '请输入您的验证码' },
+        mobile: [{ required: true, message: '请输入您的手机号' }, { pattern: /^1[3456789]\d{9}$/, message: '手机号格式错误' }],
+        code: [{ required: true, message: '请输入您的验证码' },
           { pattern: /^\d{6}$/, message: '验证码为6位数字' }],
         agree: [{ validator: (rule, value, callback) => {
           value ? callback() : callback(new Error('您未同意用户协议'))
@@ -44,9 +44,18 @@ export default {
   },
   methods: {
     login () {
-      this.$refs.myForm.validate(function (isOk) {
+      this.$refs.myForm.validate(isOk => {
         if (isOk) {
-          console.log('校验成功')
+          this.$axios.post('/authorizations', this.myForm).then(result => {
+            window.localStorage.setItem('user-token', result.data.data.token)
+            this.$router.push('/home')
+          }).catch(
+            this.$message({
+              showClose: true,
+              message: '验证码错误',
+              type: 'warning'
+            })
+          )
         }
       })
     }
@@ -56,7 +65,7 @@ export default {
 
 <style lang='less'>
 .login {
-  background-image: url("../../assets/img/login_bg.jpg");
+  background: url("../../assets/img/login_bg.jpg") 0px -80px;
   height: 100vh;
   background-size: cover;
   margin: 0;
@@ -76,5 +85,17 @@ export default {
       margin-top: 20px;
     }
   }
+  .el-card {
+    background-color: rgba(246, 246, 248, 0.3);
+    .el-button,.el-input {
+      opacity: 0.7;
+    }
+  }
+  .el-form-item__error {
+    opacity: 1;
+  }
+}
+[v-cloak] {
+  display: none;
 }
 </style>
