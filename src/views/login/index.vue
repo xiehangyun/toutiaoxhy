@@ -33,12 +33,21 @@ export default {
         agree: false
       },
       myrules: {
-        mobile: [{ required: true, message: '请输入您的手机号' }, { pattern: /^1[3456789]\d{9}$/, message: '手机号格式错误' }],
-        code: [{ required: true, message: '请输入您的验证码' },
-          { pattern: /^\d{6}$/, message: '验证码为6位数字' }],
-        agree: [{ validator: (rule, value, callback) => {
-          value ? callback() : callback(new Error('您未同意用户协议'))
-        } }]
+        mobile: [
+          { required: true, message: '请输入您的手机号' },
+          { pattern: /^1[3456789]\d{9}$/, message: '手机号格式错误' }
+        ],
+        code: [
+          { required: true, message: '请输入您的验证码' },
+          { pattern: /^\d{6}$/, message: '验证码为6位数字' }
+        ],
+        agree: [
+          {
+            validator: (rule, value, callback) => {
+              value ? callback() : callback(new Error('您未同意用户协议'))
+            }
+          }
+        ]
       }
     }
   },
@@ -46,16 +55,19 @@ export default {
     login () {
       this.$refs.myForm.validate(isOk => {
         if (isOk) {
-          this.$axios.post('/authorizations', this.myForm).then(result => {
-            window.localStorage.setItem('user-token', result.data.data.token)
-            this.$router.push('/home')
-          }).catch(
-            this.$message({
-              showClose: true,
-              message: '验证码错误',
-              type: 'warning'
+          this.$axios
+            .post('/authorizations', this.myForm)
+            .then(result => {
+              window.localStorage.setItem('user-token', result.data.data.token)
+              this.$router.push('/home')
             })
-          )
+            .catch(() => {
+              this.$message({
+                showClose: true,
+                message: '验证码错误',
+                type: 'warning'
+              })
+            })
         }
       })
     }
@@ -87,7 +99,8 @@ export default {
   }
   .el-card {
     background-color: rgba(246, 246, 248, 0.3);
-    .el-button,.el-input {
+    .el-button,
+    .el-input {
       opacity: 0.7;
     }
   }
