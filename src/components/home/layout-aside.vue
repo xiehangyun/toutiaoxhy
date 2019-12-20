@@ -3,7 +3,7 @@
     <div class="title">
       <img src="../../assets/img/logo_admin.png" alt />
     </div>
-    <el-menu router background-color="#323745" text-color="#adafb5" style="width:231px" active-text-color="#ffd04b">
+    <el-menu router background-color="#323745" text-color="#adafb5" style="width:231px" active-text-color="#ffd04b" :default-active="onRoutes">
       <el-menu-item index="/home">首页</el-menu-item>
       <el-submenu index='1'>
         <span slot="title">内容管理</span>
@@ -25,11 +25,25 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      defaultAt: ''
+    }
+  },
+
+  computed: {
+    onRoutes () {
+      console.log(this.$route.path)
+      return this.$route.path
+    }
+  }
+}
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .layout-aside {
+    position: fixed;
     width: 230px;
     height: 100vh;
     overflow: hidden;

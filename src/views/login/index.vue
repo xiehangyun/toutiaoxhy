@@ -58,7 +58,7 @@ export default {
           this.$axios
             .post('/authorizations', this.myForm)
             .then(result => {
-              window.localStorage.setItem('user-token', result.data.data.token)
+              window.sessionStorage.setItem('user-token', result.data.data.token)
               this.$router.push('/home')
             })
             .catch(() => {
@@ -101,7 +101,7 @@ export default {
     background-color: rgba(246, 246, 248, 0.3);
     .el-button,
     .el-input {
-      opacity: 0.7;
+      opacity: 0;
     }
   }
   .el-form-item__error {
