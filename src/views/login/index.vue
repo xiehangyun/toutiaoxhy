@@ -67,6 +67,7 @@ export default {
                 message: '验证码错误',
                 type: 'warning'
               })
+              this.myForm.code = ''
             })
         }
       })
@@ -98,10 +99,11 @@ export default {
     }
   }
   .el-card {
-    background-color: rgba(246, 246, 248, 0.3);
+    background-color: rgba(246, 246, 248, 0);
+    border-color: rgba(246, 246, 248, 0);
     .el-button,
     .el-input {
-      opacity: 0;
+      opacity: 0.7;
     }
   }
   .el-form-item__error {

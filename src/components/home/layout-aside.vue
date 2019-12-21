@@ -34,7 +34,6 @@ export default {
 
   computed: {
     onRoutes () {
-      console.log(this.$route.path)
       return this.$route.path
     }
   }

@@ -32,18 +32,11 @@ export default {
     }
   },
   created () {
-    let token = window.sessionStorage.getItem('user-token')
     this.$axios({
-      url: `/user/profile`,
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      url: `/user/profile`
     })
       .then(result => {
         this.userInfo = result.data.data
-      })
-      .catch(() => {
-        this.open()
       })
   },
   methods: {
@@ -54,17 +47,6 @@ export default {
       } else if (command === 'git') {
         window.location.href = 'https://github.com/xiehangyun'
       }
-    },
-    open () {
-      this.$alert('请登陆账号', '网页提示', {
-        confirmButtonText: '确定',
-        callback: () => {
-          this.pushPage()
-        }
-      })
-    },
-    pushPage () {
-      this.$router.push('/login')
     }
   }
 }

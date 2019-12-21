@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: '/home',
@@ -20,7 +20,7 @@ const routes = [
     },
     {
       path: '/home/articles',
-      component: () => import(/* webpackChunkName: "articles" */ '../views/home/home/homearticles')
+      component: () => import('../views/home/home/homearticles')
     }]
   },
   {
