@@ -1,13 +1,40 @@
 import axios from 'axios'
-// import router from '../router'
+import router from '../router'
+import { Message } from 'element-ui'
+
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 axios.interceptors.request.use(function (config) {
-  debugger
   let token = window.sessionStorage.getItem('user-token')
   config.headers.Authorization = `Bearer ${token}`
   return config
 }, function (error) {
   return Promise.reject(error)
+})
+
+axios.interceptors.response.use(function (response) {
+  return response.data ? response.data : response
+}, function (error) {
+  let status = error.response.status
+  let message = '未知异常'
+  let url = error.response.config.url
+  let href = location.href
+  if (status === 400 && url.indexOf('/authorizations') !== '-1') {
+    message = '手机号或者验证码错误'
+  } else if (status === 401) {
+    window.sessionStorage.removeItem('user-token')
+    message = '登陆已过期，请重新登陆'
+    router.push('/login')
+  } else if (status === 404 && url.indexOf('/authorizations') !== '-1') {
+    message = '手机号错误'
+  } else if (status === 403 && url.indexOf('/authorizations') !== '-1' && href.indexOf('/login') !== '-1') {
+    message = '用户非实名认证用户，无权限登录'
+  } else if (status === 403 && url.indexOf('/authorizations') !== '-1' && !href.indexOf('/login') !== '-1') {
+    message = '登陆已过期,请重新登陆'
+    router.push('/login')
+  } else if (status === 507) {
+    message = '服务器数据库异常'
+  }
+  Message({ type: 'warning', message })
 })
 
 export default axios

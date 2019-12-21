@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../../../assets/img/黑白角龙.jpg" width="1200px">
+    <img src="../../../assets/img/login_bg.jpg" width="100%" style="vertical-align:bottom">
   </div>
 </template>
 

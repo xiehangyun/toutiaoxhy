@@ -58,16 +58,11 @@ export default {
           this.$axios
             .post('/authorizations', this.myForm)
             .then(result => {
-              window.sessionStorage.setItem('user-token', result.data.data.token)
+              window.sessionStorage.setItem(
+                'user-token',
+                result.data.token
+              )
               this.$router.push('/home')
-            })
-            .catch(() => {
-              this.$message({
-                showClose: true,
-                message: '验证码错误',
-                type: 'warning'
-              })
-              this.myForm.code = ''
             })
         }
       })
