@@ -16,15 +16,18 @@ const routes = [
     component: Home,
     children: [{
       path: '/home',
-      component: home1
+      component: home1,
+      title: '首页'
     },
     {
       path: '/home/articles',
-      component: () => import('../views/home/home/homearticles')
+      component: () => import('../views/home/home/homearticles'),
+      title: '内容列表'
     },
     {
       path: '/home/comment',
-      component: () => import('../views/home/home/comment')
+      component: () => import('../views/home/home/comment'),
+      title: '评论列表'
     }]
   },
   {
