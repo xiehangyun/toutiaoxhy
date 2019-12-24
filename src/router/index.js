@@ -28,6 +28,10 @@ const routes = [
       path: '/home/comment',
       component: () => import('../views/home/home/comment'),
       title: '评论列表'
+    },
+    {
+      path: '/home/material',
+      component: () => import('../views/home/home/material')
     }]
   },
   {

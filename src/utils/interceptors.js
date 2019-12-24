@@ -36,6 +36,7 @@ axios.interceptors.response.use(function (response) {
   } else if (status === 403 && url.indexOf('/authorizations') !== -1 && href.indexOf('/login') !== -1) {
     message = '用户非实名认证用户，无权限登录'
   } else if (status === 403 && url.indexOf('/authorizations') !== -1 && !href.indexOf('/login') !== -1) {
+    window.sessionStorage.removeItem('user-token')
     message = '登陆已过期,请重新登陆'
     router.push('/login')
   } else if (status === 507) {

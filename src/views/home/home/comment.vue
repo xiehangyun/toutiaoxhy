@@ -20,7 +20,14 @@
       </el-table-column>
     </el-table>
     <el-row type="flex" justify="center" align="middle" style="height:80px">
-      <el-pagination @current-change="changePage" :current-page="page.currentPage" :page-size="page.pageSize" :total="page.pageTotal" :pager-count="11" layout="prev, pager, next"></el-pagination>
+      <el-pagination
+        @current-change="changePage"
+        :current-page="page.currentPage"
+        :page-size="page.pageSize"
+        :total="page.pageTotal"
+        :pager-count="11"
+        layout="prev, pager, next"
+      ></el-pagination>
     </el-row>
   </el-card>
 </template>
@@ -68,7 +75,11 @@ export default {
       this.loading = true
       this.$axios({
         url: '/articles',
-        params: { response_type: 'comment', per_page: this.page.pageSize, page: this.page.currentPage }
+        params: {
+          response_type: 'comment',
+          per_page: this.page.pageSize,
+          page: this.page.currentPage
+        }
       }).then(result => {
         this.list = result.data.results
         this.page.pageTotal = result.data.total_count
@@ -85,5 +96,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+
 </style>
