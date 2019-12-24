@@ -20,18 +20,20 @@ const routes = [
       title: '首页'
     },
     {
-      path: '/home/articles',
-      component: () => import('../views/home/home/homearticles'),
-      title: '内容列表'
+      path: '/home/publish',
+      component: () => import('../views/home/home/publish')
     },
     {
       path: '/home/comment',
-      component: () => import('../views/home/home/comment'),
-      title: '评论列表'
+      component: () => import('../views/home/home/comment')
     },
     {
       path: '/home/material',
       component: () => import('../views/home/home/material')
+    },
+    {
+      path: '/home/articles',
+      component: () => import('../views/home/home/articles')
     }]
   },
   {

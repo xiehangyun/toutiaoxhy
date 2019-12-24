@@ -14,8 +14,8 @@
           <el-card class="img-card" v-for="(item,index) in list" :key="index">
             <img :src="item.url" />
             <el-row class="operate" type="flex" justify="space-around" align="middle">
-              <i class="el-icon-star-on"></i>
-              <i class="el-icon-delete-solid"></i>
+              <i class="el-icon-star-on" :style="{color: item.is_collected ? 'red' : ''}" @click="collectCut(item)"></i>
+              <i class="el-icon-delete-solid" @click="delMaterial(item.id)"></i>
             </el-row>
           </el-card>
         </div>
@@ -66,6 +66,27 @@ export default {
     }
   },
   methods: {
+    delMaterial (id) {
+      this.$confirm('确定要删除此素材吗？').then(() => {
+        this.$axios({
+          url: `/user/images/${id.toString()}`,
+          method: 'delete'
+        }).then(result => {
+          this.getMaterial()
+        })
+      })
+    },
+    collectCut (item) {
+      this.$axios({
+        url: `/user/images/${item.id.toString()}`,
+        method: 'put',
+        data: {
+          collect: !item.is_collected
+        }
+      }).then(result => {
+        this.getMaterial()
+      })
+    },
     pageChange (newPage) {
       this.page.currentPage = newPage
       this.getMaterial()
@@ -130,6 +151,9 @@ export default {
       left: 0;
       background-color: #f4f5f6;
       height: 30px;
+      i {
+        cursor: pointer;
+      }
     }
   }
 }

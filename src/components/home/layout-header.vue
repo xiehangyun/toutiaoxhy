@@ -8,7 +8,7 @@
       <el-row type="flex" align="middle" justify="end">
         <img :src="userInfo.photo || defaultImg" alt />
         <el-dropdown trigger="click" @command="userHandle">
-          <span>
+          <span style="cursor: pointer">
             {{userInfo.name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>

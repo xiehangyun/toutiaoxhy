@@ -13,11 +13,11 @@ axios.interceptors.request.use(function (config) {
 })
 
 axios.defaults.transformResponse = [function (data) {
-  return JSONBig.parse(data)
+  return data.length ? JSONBig.parse(data) : {}
 }]
 
 axios.interceptors.response.use(function (response) {
-  return response.data ? response.data : response
+  return response.data ? response.data : {}
 }, function (error) {
   let status = error.response.status
   let message = '未知异常'
