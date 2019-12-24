@@ -41,7 +41,6 @@
           end-placeholder="结束日期"
            @change="changeStatus"
         ></el-date-picker>
-        {{formDate.dateRange}}
       </el-col>
     </el-row>
     <el-row class="total">
@@ -134,6 +133,19 @@ export default {
     }
   },
   methods: {
+    delArticle (id) {
+      this.$confirm('确定要删除此条文章吗?').then(() => {
+        this.$axios({
+          url: `articles/${id.toString()}`,
+          method: 'delete'
+        }).then(result => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+        })
+      })
+    },
     changeStatus () {
       this.page.currentPage = 1
       this.getConditionArticle()

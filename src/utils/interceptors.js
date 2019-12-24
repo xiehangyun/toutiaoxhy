@@ -19,14 +19,19 @@ axios.defaults.transformResponse = [function (data) {
 axios.interceptors.response.use(function (response) {
   return response.data ? response.data : {}
 }, function (error) {
+  let method = error.response.config.method
   let status = error.response.status
-  let message = '未知异常'
   let url = error.response.config.url
   let href = location.href
+  let message = '未知异常'
   if (status === 400 && url.indexOf('/authorizations') !== -1) {
     message = '手机号或者验证码错误'
   } else if (status === 400 && url.indexOf('/comments/status') !== -1) {
     message = '操作失败'
+  } else if (status === 400 && url.indexOf('/articles') !== -1 && method !== 'delete') {
+    message = '请求参数错误'
+  } else if (status === 400 && url.indexOf('/articles') !== -1 && method === 'delete') {
+    message = '已发布文章不可删除'
   } else if (status === 401) {
     window.sessionStorage.removeItem('user-token')
     message = '登陆已过期，请重新登陆'
