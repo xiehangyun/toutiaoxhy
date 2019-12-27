@@ -19,7 +19,7 @@
         <el-menu-item index="/home/fanslife"><i class="el-icon-s-grid"></i>粉丝概况</el-menu-item>
         <el-menu-item index="/home/fanslist"><i class="el-icon-s-order"></i>粉丝列表</el-menu-item>
       </el-submenu>
-      <el-menu-item><i class="el-icon-user-solid"></i>账户信息</el-menu-item>
+      <el-menu-item index="/home/account"><i class="el-icon-user-solid"></i>账户信息</el-menu-item>
     </el-menu>
   </div>
 </template>

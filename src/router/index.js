@@ -38,6 +38,9 @@ const routes = [
     {
       path: '/home/articles',
       component: () => import('../views/home/home/articles')
+    }, {
+      path: '/home/account',
+      component: () => import('../views/home/home/account')
     }]
   },
   {

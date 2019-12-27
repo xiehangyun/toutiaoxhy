@@ -18,7 +18,7 @@
           <el-radio :label="-1">自动</el-radio>
         </el-radio-group>
       </el-form-item>
-      <publish-cover :list="formDate.cover.images"></publish-cover>
+      <publish-cover :list="formDate.cover.images" @selectOneImg="revceiveImg"></publish-cover>
       <el-form-item label="频道" prop="channel_id">
         <el-select v-model="formDate.channel_id">
           <el-option v-for="(item,index) in channelsList" :value="item.id" :key="index" :label="item.name"></el-option>
@@ -73,6 +73,9 @@ export default {
     }
   },
   methods: {
+    revceiveImg (img, index) {
+      this.formDate.cover.images = this.formDate.cover.images.map((item, i) => index === i ? img : item)
+    },
     changeType () {
       if (this.formDate.cover.type === 0) {
         this.formDate.cover.images = []
