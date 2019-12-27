@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import eventBus from '../../utils/eventBus'
 export default {
   data () {
     return {
@@ -32,12 +33,10 @@ export default {
     }
   },
   created () {
-    this.$axios({
-      url: `/user/profile`
+    this.getUserAccoount()
+    eventBus.$on('userAccountChange', () => {
+      this.getUserAccoount()
     })
-      .then(result => {
-        this.userInfo = result.data
-      })
   },
   methods: {
     userHandle (command) {
@@ -47,6 +46,14 @@ export default {
       } else if (command === 'git') {
         window.location.href = 'https://github.com/xiehangyun'
       }
+    },
+    getUserAccoount () {
+      this.$axios({
+        url: `/user/profile`
+      })
+        .then(result => {
+          this.userInfo = result.data
+        })
     }
   }
 }
