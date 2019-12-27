@@ -24,6 +24,10 @@ const routes = [
       component: () => import('../views/home/home/publish')
     },
     {
+      path: '/home/publish/:id',
+      component: () => import('../views/home/home/publish')
+    },
+    {
       path: '/home/comment',
       component: () => import('../views/home/home/comment')
     },

@@ -4,22 +4,22 @@
       <img src="../../assets/img/logo_admin.png" alt />
     </div>
     <el-menu router background-color="#323745" text-color="#adafb5" style="width:231px" active-text-color="#ffd04b" :default-active="onRoutes">
-      <el-menu-item index="/home">首页</el-menu-item>
+      <el-menu-item index="/home"><i class="el-icon-s-home"></i>首页</el-menu-item>
       <el-submenu index='1'>
-        <span slot="title">内容管理</span>
-        <el-menu-item index="/home/publish">发布文章</el-menu-item>
-        <el-menu-item index="/home/articles">文章列表</el-menu-item>
-        <el-menu-item index="/home/comment">评论列表</el-menu-item>
-        <el-menu-item index="/home/material">素材管理</el-menu-item>
+        <span slot="title"><i class="el-icon-reading"></i>内容管理</span>
+        <el-menu-item index="/home/publish"><i class="el-icon-s-promotion"></i>发布文章</el-menu-item>
+        <el-menu-item index="/home/articles"><i class="el-icon-s-management"></i>文章列表</el-menu-item>
+        <el-menu-item index="/home/comment"><i class="el-icon-s-comment"></i>评论列表</el-menu-item>
+        <el-menu-item index="/home/material"><i class="el-icon-picture"></i>素材管理</el-menu-item>
       </el-submenu>
       <el-submenu index='2'>
-        <span slot="title">粉丝管理</span>
-        <el-menu-item index="/home/picture">图文数据</el-menu-item>
-        <el-menu-item index="/home/fansinfo">粉丝画像</el-menu-item>
-        <el-menu-item index="/home/fanslife">粉丝概况</el-menu-item>
-        <el-menu-item index="/home/fanslist">粉丝列表</el-menu-item>
+        <span slot="title"><i class="el-icon-s-flag"></i>粉丝管理</span>
+        <el-menu-item index="/home/picture"><i class="el-icon-picture-outline-round"></i>图文数据</el-menu-item>
+        <el-menu-item index="/home/fansinfo"><i class="el-icon-picture-outline"></i>粉丝画像</el-menu-item>
+        <el-menu-item index="/home/fanslife"><i class="el-icon-s-grid"></i>粉丝概况</el-menu-item>
+        <el-menu-item index="/home/fanslist"><i class="el-icon-s-order"></i>粉丝列表</el-menu-item>
       </el-submenu>
-      <el-menu-item>账户信息</el-menu-item>
+      <el-menu-item><i class="el-icon-user-solid"></i>账户信息</el-menu-item>
     </el-menu>
   </div>
 </template>

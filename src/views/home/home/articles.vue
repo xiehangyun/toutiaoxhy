@@ -8,7 +8,7 @@
         <span>文章状态</span>
       </el-col>
       <el-col :span="18">
-        <el-radio-group @change="changeStatus" v-model="formDate.status">
+        <el-radio-group v-model="formDate.status">
           <el-radio :label="5">全部</el-radio>
           <el-radio :label="0">草稿</el-radio>
           <el-radio :label="1">待审核</el-radio>
@@ -22,7 +22,7 @@
         <span>频道列表</span>
       </el-col>
       <el-col :span="18">
-        <el-select v-model="formDate.channels_id" @change="changeStatus">
+        <el-select v-model="formDate.channels_id">
           <el-option v-for="item in channelsList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
@@ -39,7 +39,6 @@
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
-           @change="changeStatus"
         ></el-date-picker>
       </el-col>
     </el-row>
@@ -51,7 +50,7 @@
         <el-row type="flex">
           <img :src="item.cover.images.length ? item.cover.images[0] : defaultImg" alt />
           <div class="info">
-            <span>{{item.title}}</span>
+            <div class="info-title"><span>{{item.title}}</span></div>
             <el-tag :type="item.status | filterType">{{item.status | filtersListStatus}}</el-tag>
             <span class="date">{{item.pubdate}}</span>
           </div>
@@ -59,7 +58,7 @@
       </el-col>
       <el-col :span="6">
         <el-row class="right" type="flex" justify="end">
-          <span>
+          <span @click="toModify(item.id)">
             <i class="el-icon-edit"></i>修改
           </span>
           <span @click="delArticle(item.id)">
@@ -100,6 +99,14 @@ export default {
       }
     }
   },
+  watch: {
+    formDate: {
+      deep: true,
+      handler () {
+        this.changeStatus()
+      }
+    }
+  },
   filters: {
     filtersListStatus (value) {
       switch (value) {
@@ -133,6 +140,9 @@ export default {
     }
   },
   methods: {
+    toModify (id) {
+      this.$router.push(`/home/publish/${id.toString()}`)
+    },
     delArticle (id) {
       this.$confirm('确定要删除此条文章吗?').then(() => {
         this.$axios({
@@ -205,12 +215,12 @@ export default {
     padding: 10px 0;
     border-bottom: 1px solid #f2f3f5;
     img {
-      width: 180px;
       height: 100px;
       margin-right: 10px;
       border-radius: 4px;
     }
     .info {
+      width: 100%;
       height: 100px;
       display: flex;
       flex-direction: column;
@@ -221,6 +231,14 @@ export default {
       .date {
         color: #999;
         font-size: 12px;
+      }
+      .info-title {
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        span {
+          white-space: nowrap;
+        }
       }
     }
     .right {
