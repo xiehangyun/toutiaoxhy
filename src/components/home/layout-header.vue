@@ -1,7 +1,7 @@
 <template>
   <el-row class="layout-header" type="flex" align="middle" justify="space-between">
     <el-col :span="6" class="left">
-      <i class="el-icon-s-unfold"></i>
+      <i @click="unfoldOrfoldSwitch" :class="unfoldOrfold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
       <span class="title">江苏传智播客教育科技股份有限公司</span>
     </el-col>
     <el-col :span="4" class="right">
@@ -28,6 +28,7 @@ import eventBus from '../../utils/eventBus'
 export default {
   data () {
     return {
+      unfoldOrfold: false,
       userInfo: {},
       defaultImg: require('../../assets/img/header.jpg')
     }
@@ -39,6 +40,10 @@ export default {
     })
   },
   methods: {
+    unfoldOrfoldSwitch () {
+      this.unfoldOrfold = !this.unfoldOrfold
+      eventBus.$emit('unfoldOrfoldSwitch')
+    },
     userHandle (command) {
       if (command === 'logout') {
         window.sessionStorage.removeItem('user-token')

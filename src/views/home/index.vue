@@ -1,7 +1,7 @@
 <template>
   <el-container>
-    <el-aside  style="background-color:#353b4e;min-height:100vh;width:230px">
-      <layout-aside></layout-aside>
+    <el-aside :style="unfoldOrfold ? 'width:60px' : 'width:230px'" style="transition: 0.3s all;background-color:#353b4e;min-height:100vh;width:230px;overflow: hidden;">
+      <layout-aside  :unfoldOrfold="unfoldOrfold"></layout-aside>
     </el-aside>
     <el-container>
       <el-header>
@@ -15,7 +15,19 @@
 </template>
 
 <script>
-export default {}
+import eventBus from '../../utils/eventBus'
+export default {
+  data () {
+    return {
+      unfoldOrfold: false
+    }
+  },
+  created () {
+    eventBus.$on('unfoldOrfoldSwitch', () => {
+      this.unfoldOrfold = !this.unfoldOrfold
+    })
+  }
+}
 </script>
 
 <style>
