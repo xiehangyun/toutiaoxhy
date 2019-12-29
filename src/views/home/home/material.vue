@@ -109,6 +109,7 @@ export default {
 <style lang="less" scoped>
 .img-list {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   .img-card {
     width: 200px;
