@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container style="height:100vh">
     <el-aside :style="unfoldOrfold ? 'width:60px' : 'width:230px'" style="transition: 0.3s all;background-color:#353b4e;min-height:100vh;width:230px;overflow: hidden;">
       <layout-aside  :unfoldOrfold="unfoldOrfold"></layout-aside>
     </el-aside>

@@ -12,7 +12,7 @@ export default {
 
 <style lang="less" scoped>
   .date-box-container {
-    min-height: 93.1vh;
+    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
