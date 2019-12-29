@@ -3,6 +3,7 @@ import layoutHeader from './home/layout-header'
 import breadCrumb from './common/bread-crumb'
 import publishCover from './publishmodule/cover'
 import selectCover from './publishmodule/select-cover'
+import dateBox from './common/date'
 import { quillEditor } from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -16,5 +17,6 @@ export default {
     Vue.component('quill-editor', quillEditor)
     Vue.component('publish-cover', publishCover)
     Vue.component('select-cover', selectCover)
+    Vue.component('date-box', dateBox)
   }
 }

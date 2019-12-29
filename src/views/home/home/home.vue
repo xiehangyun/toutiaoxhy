@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <img src="../../../assets/img/login_bg.jpg" width="100%" style="vertical-align:bottom">
+  <div class="date-box-container">
+    <date-box></date-box>
   </div>
 </template>
 
@@ -10,6 +10,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+  .date-box-container {
+    min-height: 93.1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("../../../assets/img/login_bg.jpg") 0px -80px;
+    background-size: cover
+  }
 </style>
