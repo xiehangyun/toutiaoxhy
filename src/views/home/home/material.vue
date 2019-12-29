@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { delMaterial, collectCut, UpDateImg, getMaterial } from '../../../actions/material'
 export default {
   data () {
     return {
@@ -66,62 +67,37 @@ export default {
     }
   },
   methods: {
-    delMaterial (id) {
-      this.$confirm('确定要删除此素材吗？').then(() => {
-        this.$axios({
-          url: `/user/images/${id.toString()}`,
-          method: 'delete'
-        }).then(result => {
-          this.getMaterial()
-        })
-      })
+    async delMaterial (id) {
+      await this.$confirm('确定要删除此素材吗？')
+      await delMaterial(id.toString())
+      this.getMaterial()
     },
-    collectCut (item) {
-      this.$axios({
-        url: `/user/images/${item.id.toString()}`,
-        method: 'put',
-        data: {
-          collect: !item.is_collected
-        }
-      }).then(result => {
-        this.getMaterial()
-      })
+    async collectCut (item) {
+      await collectCut(item.id.toString(), { collect: !item.is_collected })
+      this.getMaterial()
     },
     pageChange (newPage) {
       this.page.currentPage = newPage
       this.getMaterial()
     },
-    UpDateImg (params) {
+    async UpDateImg (params) {
       this.loading = true
       let form = new FormData()
       form.append('image', params.file)
-      this.$axios({
-        method: 'post',
-        url: 'user/images',
-        data: form
-      }).then(result => {
-        this.loading = false
-        this.getMaterial()
-      })
+      await UpDateImg(form)
+      this.loading = false
+      this.getMaterial()
     },
     tabChange () {
       this.page.currentPage = 1
       this.getMaterial()
     },
-    getMaterial () {
+    async getMaterial () {
       this.loading = true
-      this.$axios({
-        url: '/user/images',
-        params: {
-          collect: this.activeName === 'collect',
-          page: this.page.currentPage,
-          per_page: this.page.pageSize
-        }
-      }).then(result => {
-        this.loading = false
-        this.list = result.data.results
-        this.page.tatol = result.data.total_count
-      })
+      let result = await getMaterial({ collect: this.activeName === 'collect', page: this.page.currentPage, per_page: this.page.pageSize })
+      this.loading = false
+      this.list = result.data.results
+      this.page.tatol = result.data.total_count
     }
   },
   created () {

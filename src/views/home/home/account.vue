@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { saveUserImg, saveUserData } from '../../../actions/account'
+import { userProfile } from '../../../actions/home-header'
 import eventBus from '../../../utils/eventBus'
 export default {
   data () {
@@ -39,45 +41,32 @@ export default {
     }
   },
   methods: {
-    saveUserImg (parmas) {
+    async saveUserImg (parmas) {
       this.loading = true
       let data = new FormData()
       data.append('photo', parmas.file)
-      this.$axios({
-        method: 'patch',
-        url: '/user/photo',
-        data
-      }).then(result => {
-        this.formDate.photo = result.data.photo
-        eventBus.$emit('userAccountChange')
-        this.loading = false
-      })
+      let result = await saveUserImg(data)
+      this.formDate.photo = result.data.photo
+      eventBus.$emit('userAccountChange')
+      this.loading = false
     },
     saveUserData () {
-      this.$refs.userForm.validate((isOk) => {
+      this.$refs.userForm.validate(async (isOk) => {
         if (isOk) {
           this.loading = true
-          this.$axios({
-            url: '/user/profile',
-            method: 'patch',
-            data: this.formDate
-          }).then(result => {
-            this.$message({
-              type: 'success',
-              message: '保存成功'
-            })
-            this.loading = false
-            eventBus.$emit('userAccountChange')
+          await saveUserData(this.formDate)
+          this.$message({
+            type: 'success',
+            message: '保存成功'
           })
+          this.loading = false
+          eventBus.$emit('userAccountChange')
         }
       })
     },
-    getUserData () {
-      this.$axios({
-        url: '/user/profile'
-      }).then(result => {
-        this.formDate = result.data
-      })
+    async getUserData () {
+      let result = await userProfile()
+      this.formDate = result.data
     }
   },
   created () {

@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { UpDateImg, getMaterial } from '../../actions/material'
 export default {
   data () {
     return {
@@ -44,18 +45,13 @@ export default {
     }
   },
   methods: {
-    saveCoverImg (params) {
+    async saveCoverImg (params) {
       this.loading = true
       let data = new FormData()
       data.append('image', params.file)
-      this.$axios({
-        method: 'post',
-        url: '/user/images',
-        data
-      }).then(result => {
-        this.$emit('selectOneImg', result.data.url)
-        this.loading = false
-      })
+      let result = await UpDateImg(data)
+      this.$emit('selectOneImg', result.data.url)
+      this.loading = false
     },
     currentPageChange (newPage) {
       this.page.currentPage = newPage
@@ -64,18 +60,10 @@ export default {
     pitchOnImg (url) {
       this.$emit('selectOneImg', url)
     },
-    getAllImg () {
-      this.$axios({
-        url: '/user/images',
-        params: {
-          collect: false,
-          page: this.page.currentPage,
-          per_page: this.page.pageSize
-        }
-      }).then(result => {
-        this.page.total = result.data.total_count
-        this.list = result.data.results
-      })
+    async getAllImg () {
+      let result = await getMaterial({ collect: false, page: this.page.currentPage, per_page: this.page.pageSize })
+      this.page.total = result.data.total_count
+      this.list = result.data.results
     }
   },
   created () {

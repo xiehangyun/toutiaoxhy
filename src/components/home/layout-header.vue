@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { userProfile } from '../../actions/home-header'
 import eventBus from '../../utils/eventBus'
 export default {
   data () {
@@ -52,13 +53,9 @@ export default {
         window.location.href = 'https://github.com/xiehangyun'
       }
     },
-    getUserAccoount () {
-      this.$axios({
-        url: `/user/profile`
-      })
-        .then(result => {
-          this.userInfo = result.data
-        })
+    async getUserAccoount () {
+      let result = await userProfile()
+      this.userInfo = result.data
     }
   }
 }

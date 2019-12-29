@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { getChannelsList } from '../../../actions/acticles'
+import { publishArticales, getArticle } from '../../../actions/publish'
 export default {
   data () {
     return {
@@ -85,33 +87,21 @@ export default {
         this.formDate.cover.images = ['', '', '']
       }
     },
-    getChannelsList () {
-      this.$axios({
-        url: '/channels'
-      }).then(result => {
-        this.channelsList = result.data.channels
-      })
+    async getChannelsList () {
+      let result = await getChannelsList()
+      this.channelsList = result.data.channels
     },
     publishArticales (draft) {
-      this.$refs.publishForm.validate(isOk => {
+      this.$refs.publishForm.validate(async isOk => {
         if (isOk) {
-          this.$axios({
-            method: this.articlesId ? 'put' : 'post',
-            url: this.articlesId ? `/articles/${this.articlesId}` : `/articles`,
-            params: { draft },
-            data: this.formDate
-          }).then(result => {
-            this.$router.push('/home/articles')
-          })
+          await publishArticales(this.articlesId, { draft }, this.formDate)
+          this.$router.push('/home/articles')
         }
       })
     },
-    getArticles (id) {
-      this.$axios({
-        url: `articles/${id}`
-      }).then(result => {
-        this.formDate = result.data
-      })
+    async getArticles (id) {
+      let result = await getArticle(id)
+      this.formDate = result.data
     }
   },
   created () {

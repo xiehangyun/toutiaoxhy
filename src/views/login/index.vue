@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { logIn } from '../../actions/login'
 export default {
   data () {
     return {
@@ -53,17 +54,11 @@ export default {
   },
   methods: {
     login () {
-      this.$refs.myForm.validate(isOk => {
+      this.$refs.myForm.validate(async isOk => {
         if (isOk) {
-          this.$axios
-            .post('/authorizations', this.myForm)
-            .then(result => {
-              window.sessionStorage.setItem(
-                'user-token',
-                result.data.token
-              )
-              this.$router.push('/home')
-            })
+          let result = await logIn(this.myForm)
+          window.sessionStorage.setItem('user-token', result.data.token)
+          this.$router.push('/home')
         }
       })
     }

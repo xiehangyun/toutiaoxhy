@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import { delArticles, getChannelsList, getArticles } from '../../../actions/acticles'
 export default {
   data () {
     return {
@@ -143,19 +144,14 @@ export default {
     toModify (id) {
       this.$router.push(`/home/publish/${id.toString()}`)
     },
-    delArticle (id) {
-      this.$confirm('确定要删除此条文章吗?').then(() => {
-        this.$axios({
-          url: `articles/${id.toString()}`,
-          method: 'delete'
-        }).then(result => {
-          this.$message({
-            type: 'success',
-            message: '删除成功'
-          })
-          this.getArticles()
-        })
+    async delArticle (id) {
+      await this.$confirm('确定要删除此条文章吗?')
+      await delArticles(id.toString())
+      this.$message({
+        type: 'success',
+        message: '删除成功'
       })
+      this.getArticles()
     },
     changeStatus () {
       this.page.currentPage = 1
@@ -176,21 +172,14 @@ export default {
       }
       this.getArticles(params)
     },
-    getChannelsList () {
-      this.$axios({
-        url: '/channels'
-      }).then(result => {
-        this.channelsList = result.data.channels
-      })
+    async getChannelsList () {
+      let result = await getChannelsList()
+      this.channelsList = result.data.channels
     },
-    getArticles (params) {
-      this.$axios({
-        url: '/articles',
-        params
-      }).then(result => {
-        this.list = result.data.results
-        this.page.total = result.data.total_count
-      })
+    async getArticles (params) {
+      let result = await getArticles(params)
+      this.list = result.data.results
+      this.page.total = result.data.total_count
     }
   },
   created () {
