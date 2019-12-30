@@ -3,7 +3,7 @@
     <div class="title" :style="unfoldOrfold ? 'width:60px' : 'width:230px'" style="transition: 0.3s all;">
       <img :src="unfoldOrfold ? smallImg : bigImg" alt />
     </div>
-    <el-menu :collapse="unfoldOrfold" router background-color="#323745" style="transition: 0.3s all;" text-color="#adafb5" :style="unfoldOrfold ? 'width:60px' : 'width:230px'" active-text-color="#ffd04b" :default-active="onRoutes">
+    <el-menu :collapse-transition="false" :collapse="unfoldOrfold" router background-color="#323745" style="transition: 0.3s all;" text-color="#adafb5" :style="unfoldOrfold ? 'width:60px' : 'width:230px'" active-text-color="#ffd04b" :default-active="onRoutes">
       <el-menu-item index="/home"><i class="el-icon-s-home"></i><span>首页</span></el-menu-item>
       <el-submenu index='1'>
         <template slot="title"><i class="el-icon-reading"></i><span>内容管理</span></template>
