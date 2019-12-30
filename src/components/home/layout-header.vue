@@ -51,6 +51,8 @@ export default {
         this.$router.push('/login')
       } else if (command === 'git') {
         window.location.href = 'https://github.com/xiehangyun'
+      } else if (command === 'info') {
+        this.$router.push('/home/account')
       }
     },
     async getUserAccoount () {
