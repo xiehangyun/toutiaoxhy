@@ -65,7 +65,7 @@ export default {
       .hour,.min,.second {
           position: absolute;
           bottom:200px;
-          transform-origin: 0 100%;
+          transform-origin: 50% 100%;
       }
     .hour {
         background-image: url('../../assets/img/hou.png');
